@@ -1,0 +1,11 @@
+docker run -it quay.io/travisci/travis-go /bin/bash
+su - travis
+mkdir go && mkdir go/src
+cd go/src
+git clone https://github.com/ether-camp/hive.git
+export GOPATH=/home/travis/go
+cd hive
+go get ./...
+go build && go install
+hive --client=ethereumj:master --docker-noshell=true --smoke=true --test=.
+
